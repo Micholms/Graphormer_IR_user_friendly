@@ -1,0 +1,28 @@
+ fairseq-train \
+	--user-dir ../../graphormer \
+	--num-workers 6 \
+	--ddp-backend=legacy_ddp \
+	--seed 23 \
+	--user-data-dir Graphormer-IR/examples/property_prediction/training_dataset \
+	--dataset-name customized_IRSpectraDataset \
+	--task graph_prediction \
+	--criterion sid \
+	--arch graphormer_base \
+	--num-classes 1801 \
+	--attention-dropout 0.10 --act-dropout 0.10 --dropout 0.10 \
+	--optimizer adam --adam-betas '(0.9, 0.999)' --adam-eps 1e-8 --clip-norm 5.0 --weight-decay 0.01 \
+	--lr-scheduler polynomial_decay --power 1 --warmup-updates 56250 --total-num-update 375000\
+	--lr $1 \
+	--fp16 \
+    --encoder-layers 4 \
+    --encoder-embed-dim  2100 \
+    --encoder-ffn-embed-dim 2100 \
+    --encoder-attention-heads 210 \
+    --mlp-layers 3\
+    --wandb-project "interactive_test"\
+    --batch-size 32 \
+	--max-epoch $2 \
+	--no-last-checkpoints  \
+	--finetune-from-model $3 \
+	--no-epoch-checkpoints \
+	--save-dir $4\
