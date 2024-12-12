@@ -1,4 +1,5 @@
 Graphormer IR user-friendly is a modified version of the Graphormer-IR model (https://github.com/HopkinsLaboratory/Graphormer-IR) by the authours of **Graphormer-IR: Graph Transformers Predict Experimental IR Spectra Using Highly Specialized Attention**. 
+
 This updated version allows for use with simple interactive scripts, but all other work should be credited to them. 
 
 @article{Stienstra2024, author = {Cailum M. K. Stienstra and Liam Hebert and Patrick Thomas and Alexander Haack and Jason Guo and W. Scott Hopkins}, doi = {10.1021/ACS.JCIM.4C00378}, issn = {1549-9596}, journal = {Journal of Chemical Information and Modeling}, month = {6}, publisher = {American Chemical Society}, title = {Graphormer-IR: Graph Transformers Predict Experimental IR Spectra Using Highly Specialized Attention}, url = {https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c00378}, year = {2024}, }
@@ -8,7 +9,7 @@ The Graphormer-IR code is based on the original work Grahormer by the authours o
 @inproceedings{ ying2021do, title={Do Transformers Really Perform Badly for Graph Representation?}, author={Chengxuan Ying and Tianle Cai and Shengjie Luo and Shuxin Zheng and Guolin Ke and Di He and Yanming Shen and Tie-Yan Liu}, booktitle={Thirty-Fifth Conference on Neural Information Processing Systems}, year={2021}, url={https://openreview.net/forum?id=OeWooOxFwDa} }
 
 ---------------------------------------------------------------------
-Set-up 
+**Set-up **
 
 The model is based on Pytorch, and thus required correct installation. Here, an installation for CUDA 11.5 to 11.8 is available. Follow these steps in order to install the model:
   1. Create a conda envrionment with python 3.9
@@ -31,8 +32,39 @@ The model is based on Pytorch, and thus required correct installation. Here, an 
 
      bash install_CUDA11.5_11.8.sh
 
-After this point, only model and data is needed. It is possible to train a model from scratch, but the authors of Graphormer-IR made their best trained models available online at Zenodo (https://github.com/HopkinsLaboratory/Graphormer-IR).
+After this point, only model and data is needed. It is possible to train a model from scratch, but the authors of Graphormer-IR made their best trained splits available online at Zenodo (https://github.com/HopkinsLaboratory/Graphormer-IR). Information of model training, architecture etc can be found there. 
 
+-----------------------------------------------------------------------
+**Data**
+
+Regardning pre-trained splits
+
+See info here https://github.com/HopkinsLaboratory/Graphormer-IR or https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c00378
+
+For fine-tuning 
+
+It is possible to fine-tune a split with use of your own data. The input should be in a .csv file, as:
+
+    SMILES   PHASE     0           2            4  ....  3998   4000  
+0    CCC      gas 
+1    ..
+
+Possible phases (at the moment) is gas, KBr. nujol mull, liquid film and CCl4. Training, validation and testing split can be created by running the csv-file through gen_splits.py (found in _scripts_ )
+
+    cd scripts
+    python3 gen_splits.py <path_to_csv-file>
+
+This will generate four files: training_dataset.csv, testing_dataset.csv, valid_indices.csv and train_indices.csv placed in a folder named _Data_splits_. 
+
+
+-----------------------------------------------------------------------
+**Interactive scipts**
+
+Fine tuning
+
+Evulation 
+
+Prediction
 
 
 
