@@ -29,7 +29,7 @@ The model is based on Pytorch, and thus required correct installation. Here, an 
 
   4. Move into Graphormer_IR_user_friendly
      
-     cd Graphormer_IR_user_friendly
+    cd Graphormer_IR_user_friendly
 
   5. Run install for CUDA 11.5/11.8
   
