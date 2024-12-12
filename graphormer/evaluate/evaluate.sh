@@ -14,5 +14,6 @@ python evaluate.py \
     --mlp-layers 3 \
     --batch-size 64 \
     --num-classes 1801 \
-    --save-dir '/home/cmkstien/Graphormer_IR_pub/model' \
+    --save-dir $1 \
     --split train \
+    --dataset-source $2\
