@@ -84,6 +84,8 @@ where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR> are the FOLDER for 
 
 NOTE: WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
 
+NOTE: If downloading from Zenodo, put the model in a folder. For example "base_model/split1_0.8516.pt" then use _base_model_ as <BASE-MODEL-DIR>.
+
 **Evulation:**
 
 Run Interactive_evaluation.sh in its location and answer all questions accordingly. 
