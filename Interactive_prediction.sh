@@ -31,7 +31,7 @@ echo "                                                 File or direct input?"
 echo -n "                                                    Answer (file/input): "
 read -r ans
 
-if test $ans == 'file'; then
+if test $ans = 'file'; then
 echo "                                                 Enter path to file with SMILES and phase"
 
 echo -n "                                                    Smiles path (csv file):"
@@ -71,12 +71,10 @@ cp -r $model Graphormer-IR/graphormer/evaluate/
 
 #cd Graphormer-IR
 
-if test $ans == 'file'
+if test $ans = 'file'
 then
     bash Graphormer-IR/graphormer/evaluate/predict_new.sh $model $smiles
 else
     bash Graphormer-IR/graphormer/evaluate/predict_new.sh $model smiles.csv
     rm smiles.csv
 fi
-
-rm -r Graphormer-IR/graphormer/evaluate/$model
