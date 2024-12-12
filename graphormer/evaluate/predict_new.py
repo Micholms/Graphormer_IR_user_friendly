@@ -40,7 +40,7 @@ def gen_histogram(d_set):
     n, bins, patches = plt.hist(x=d_set, bins=np.arange(0, 1.1, 0.05), color='darkmagenta',
                             alpha=0.7, rwidth=0.85)
     plt.grid(axis='y', alpha=0.75)
-    plt.xlabel('SIM')
+    plt.xlabel('SIS')
     plt.ylabel('Frequency')
     m = np.mean(d_set)
     std = np.std(d_set)
@@ -232,25 +232,26 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     sum1=np.nansum(conv1)
                     norm1=conv1/sum1 ## prediction
                     norm2 = list(np.zeros_like(norm1)) # padded true value
-                    norm2.extend(norm1)
-                    norm2.extend([smiles])
-                    stack.append(norm2)
+                    norm1=list(norm1)
+                    #norm2.extend(norm1)
+                    norm1.extend([smiles])
+                    stack.append(norm1)
+
 
                     plt.plot(wv, y_val_pred)
                     plt.title(smiles + ". Phase: " +phase[i][1])
                     plt.show()## if there is no target spectra (testing predictions)
                     continue
 
-            
+
             if save:
 
 
                 wv =np.arange(400, 4002, 2)
-                wv_true = [str(i) + '_true' for i in wv]
-                wv_pred = [str(i) + '_pred' for i in wv]
-                header = wv_true + wv_pred + ['smiles', 'sim']
+                #wv_true = [str(i) + '_true' for i in wv]
+                wv_pred = [str(i) for i in wv]
+                header = wv_pred + ['smiles']
                 cwd = os.getcwd()
-                print(cwd)
                 with open('./pred_results.csv', 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
