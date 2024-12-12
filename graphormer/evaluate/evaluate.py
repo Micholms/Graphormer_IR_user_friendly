@@ -12,6 +12,7 @@ from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 import math
 import sys
+
 from os import path
 import pickle
 from tqdm import tqdm
@@ -38,7 +39,7 @@ def gen_histogram(d_set):
     n, bins, patches = plt.hist(x=d_set, bins=np.arange(0, 1.1, 0.05), color='darkmagenta',
                             alpha=0.7, rwidth=0.85)
     plt.grid(axis='y', alpha=0.75)
-    plt.xlabel('SIM')
+    plt.xlabel('SIS')
     plt.ylabel('Frequency')
     m = np.mean(d_set)
     std = np.std(d_set)
@@ -245,14 +246,15 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     csvwriter.writerow(header)
                     for row in stack:
                         csvwriter.writerow(row)
-
+                print("Saved file")
             m = np.round(np.mean(sim_L), 5)
             std = np.round(np.std(sim_L), 5)
             print(m, std)
             gen_histogram(sim_L) ## for summary statistics
             logger.info(f"sim average: {m}")
+            df=pd.read_csv("./eval_results.csv")
             true,pred=get_true_pred(df)
-            plot_percentile(true,pred, [10,20,30,40,50,60,70,80,90,100])
+            plot_percentile(df,true,pred, [10,20,30,40,50,60,70,80,90,100])
 
 def main():
     parser = options.get_training_parser()

@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-df=pd.read_csv("./eval_results.csv")
+
 
 def get_true_pred(df):
     true=df.iloc[:,:1800]
@@ -12,7 +12,7 @@ def get_true_pred(df):
     true["sim"]=pred["sim"]
     return true, pred
 
-def get_percentile(p):
+def get_percentile(df,p):
     x=df["sim"]
     pcen=np.percentile(x,p)
     i_high=np.asarray([i-pcen if i-pcen>=0 else x.max()-pcen for i in x]).argmin()
@@ -21,11 +21,11 @@ def get_percentile(p):
     return i_near
 
 
-def plot_percentile(true, pred,p_range):
+def plot_percentile(df,true, pred,p_range):
     indexes=[]
     m,n=0,0
     for i in p_range:
-        indexes.append(get_percentile(i))
+        indexes.append(get_percentile(df,i))
     fig, ax = plt.subplots(5,2,figsize=(12,15), sharex=True, sharey=True)
     
     for j,index in enumerate(indexes):
