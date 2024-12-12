@@ -1,15 +1,15 @@
 Graphormer IR user-friendly 
 --------------------------------------
 
-Graphormer IR user-friendly is a modified version of the Graphormer-IR model (https://github.com/HopkinsLaboratory/Graphormer-IR) by the authors of **Graphormer-IR: Graph Transformers Predict Experimental IR Spectra Using Highly Specialized Attention**. 
-
-This updated version allows for use with simple interactive scripts, but all other work should be credited to Cailum M. K. Stienstra, Liam Hebert, Patrick Thomas, Alexander Haack, Jason Guo and W. Scott Hopkins along Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di He, Yanming Shen and Tie-Yan Liu.
+Graphormer IR user-friendly is a modified version of the Graphormer-IR model (https://github.com/HopkinsLaboratory/Graphormer-IR) by the authors of: **Graphormer-IR: Graph Transformers Predict Experimental IR Spectra Using Highly Specialized Attention**. 
 
 @article{Stienstra2024, author = {Cailum M. K. Stienstra and Liam Hebert and Patrick Thomas and Alexander Haack and Jason Guo and W. Scott Hopkins}, doi = {10.1021/ACS.JCIM.4C00378}, issn = {1549-9596}, journal = {Journal of Chemical Information and Modeling}, month = {6}, publisher = {American Chemical Society}, title = {Graphormer-IR: Graph Transformers Predict Experimental IR Spectra Using Highly Specialized Attention}, url = {https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c00378}, year = {2024}, }
 
-The Graphormer-IR code is based on the original work Grahormer by the authours of **Do Transformers Really Perform Badly for Graph Representation?**
+The Graphormer-IR code is based on the original work Grahormer by the authors of: **Do Transformers Really Perform Badly for Graph Representation?**
 
 @inproceedings{ ying2021do, title={Do Transformers Really Perform Badly for Graph Representation?}, author={Chengxuan Ying and Tianle Cai and Shengjie Luo and Shuxin Zheng and Guolin Ke and Di He and Yanming Shen and Tie-Yan Liu}, booktitle={Thirty-Fifth Conference on Neural Information Processing Systems}, year={2021}, url={https://openreview.net/forum?id=OeWooOxFwDa} }
+
+This updated version allows for use with simple interactive scripts, but all other work should be credited to Cailum M. K. Stienstra, Liam Hebert, Patrick Thomas, Alexander Haack, Jason Guo and W. Scott Hopkins along Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di He, Yanming Shen and Tie-Yan Liu.
 
 ---------------------------**Set-up**------------------------------------------
 
