@@ -53,7 +53,7 @@ _For fine-tuning_
 
 It is possible to fine-tune a split with use of your own data. The input should be in a .csv file, with SMILES, phase and intensities for 400-4000 cm-1, with 2cm-1 intervals, as the example _NIST_IR_Dataset.csv_
 
-Possible phases (at the moment) is gas, KBr. nujol mull, liquid film and CCl4. Training, validation and testing split can be created by running the csv-file through gen_splits.py (found in _scripts_ )
+Possible phases (at the moment) are gas, KBr. nujol mull, liquid film and CCl4. Training, validation and testing split can be created by running the csv-file through gen_splits.py (found in _scripts_ )
 
     cd scripts
     python3 gen_splits.py <path_to_csv-file>
