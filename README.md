@@ -36,7 +36,11 @@ The model is based on Pytorch, and thus required correct installation. Here, an 
   
     bash install_CUDA11.5_11.8.sh
 
-After this point, only model and data is needed. 
+  6. Lastly, move up one directory
+
+    cd ..
+
+After this point, only model and data is needed. The folder Graphormer_IR_user_friendly have been renamed to Graphormer-IR and all files put in the correct place.
 
 **Data**
 -----------------------------------------------------------------------
