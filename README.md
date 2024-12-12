@@ -9,30 +9,25 @@ The Graphormer-IR code is based on the original work Grahormer by the authours o
 @inproceedings{ ying2021do, title={Do Transformers Really Perform Badly for Graph Representation?}, author={Chengxuan Ying and Tianle Cai and Shengjie Luo and Shuxin Zheng and Guolin Ke and Di He and Yanming Shen and Tie-Yan Liu}, booktitle={Thirty-Fifth Conference on Neural Information Processing Systems}, year={2021}, url={https://openreview.net/forum?id=OeWooOxFwDa} }
 
 ---------------------------------------------------------------------
-**Set-up **
+**Set-up**
 
 The model is based on Pytorch, and thus required correct installation. Here, an installation for CUDA 11.5 to 11.8 is available. Follow these steps in order to install the model:
   1. Create a conda envrionment with python 3.9
-
-     conda create --name _<name_of_env>_ python=3.9
+    conda create --name _<name_of_env>_ python=3.9
 
   2. Activate conda enviroment
-
-     conda activate _<name_of_env>_
+    conda activate _<name_of_env>_
 
   3. Clone github repository
-
-     git clone --recursive https://github.com/Micholms/Graphormer_IR_user_friendly
+    git clone --recursive https://github.com/Micholms/Graphormer_IR_user_friendly
 
   4. Move into Graphormer_IR_user_friendly
-
      cd Graphormer_IR_user_friendly
 
   5. Run install for CUDA 11.5/11.8
+    bash install_CUDA11.5_11.8.sh
 
-     bash install_CUDA11.5_11.8.sh
-
-After this point, only model and data is needed. It is possible to train a model from scratch, but the authors of Graphormer-IR made their best trained splits available online at Zenodo (https://github.com/HopkinsLaboratory/Graphormer-IR). Information of model training, architecture etc can be found there. 
+After this point, only model and data is needed. 
 
 -----------------------------------------------------------------------
 **Data**
@@ -45,7 +40,7 @@ For fine-tuning
 
 It is possible to fine-tune a split with use of your own data. The input should be in a .csv file, as:
 
-    SMILES   PHASE     0           2            4  ....  3998   4000  
+     SMILES   PHASE     0           2            4  ....  3998   4000  
 0    CCC      gas 
 1    ..
 
@@ -56,13 +51,23 @@ Possible phases (at the moment) is gas, KBr. nujol mull, liquid film and CCl4. T
 
 This will generate four files: training_dataset.csv, testing_dataset.csv, valid_indices.csv and train_indices.csv placed in a folder named _Data_splits_. 
 
+----------------------------------------------------------------------
+**Usage**
+It is possible to train a model from scratch, but the authors of Graphormer-IR made their best trained splits available online at Zenodo (https://github.com/HopkinsLaboratory/Graphormer-IR). Information of model training, architecture etc can be found there. 
 
------------------------------------------------------------------------
-**Interactive scipts**
 
-Fine tuning
+*Interactive scipts*
+There exist interactive scripts enabling fine-tuning, evaulation and prediction.
 
-Evulation 
+
+**Fine-tuning:** 
+Run Interactive_training.sh in its location and answer all questions accordingly. 
+    bash Interactive_training.sh
+
+
+
+
+Evulation: 
 
 Prediction
 
