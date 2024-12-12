@@ -16,7 +16,7 @@ This updated version allows for use with simple interactive scripts, but all oth
 
 
 The model is based on Pytorch, and thus required correct installation. Here, an installation for CUDA 11.5 to 11.8 is available. Follow these steps in order to install the model:
-  1. Create a conda envrionment with python 3.9
+  1. Create a conda environment with python 3.9
      
     conda create --name _<name_of_env>_ python=3.9
 
@@ -41,7 +41,7 @@ After this point, only model and data is needed.
 **Data**
 -----------------------------------------------------------------------
 
-_Regardning pre-trained splits_
+_Regarding pre-trained splits_
 
 See info here https://github.com/HopkinsLaboratory/Graphormer-IR or https://pubs.acs.org/doi/abs/10.1021/acs.jcim.4c00378
 
@@ -62,7 +62,7 @@ This will generate four files: _training_dataset.csv_, _testing_dataset.csv, val
 It is possible to train a model from scratch, but the authors of Graphormer-IR made their best trained splits available online at Zenodo (https://github.com/HopkinsLaboratory/Graphormer-IR). Information of model training, architecture etc can be found there. 
 
 
-There exist interactive scripts enabling fine-tuning, evaulation and prediction.
+There exist interactive scripts enabling fine-tuning, evaluation and prediction.
 
 
 **Fine-tuning:** 
@@ -86,20 +86,20 @@ NOTE: WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh f
 
 **Evulation:**
 
-Run Interactive_evaulation.sh in its location and answer all questions accordingly. 
+Run Interactive_evaluation.sh in its location and answer all questions accordingly. 
 
-    bash Interactive_evaulation.sh
+    bash Interactive_evaluation.sh
     
-It is also possible to evaulate without the interactive script by:
+It is also possible to evaluate without the interactive script by:
 
-    cd graphormer/evaulate
-    bash evaulate_quick.sh  <MODEL-DIR> <DATA>
+    cd graphormer/evaluate
+    bash evaluate_quick.sh  <MODEL-DIR> <DATA>
 
-where <MODEL-DIR> are the FOLDER for the model to evaulate, and <DATA> the path to the data to evaulate with (possible testing_dataset.csv from _Data_splits_)
+where <MODEL-DIR> are the FOLDER for the model to evaluate, and <DATA> the path to the data to evaluate with (possible testing_dataset.csv from _Data_splits_)
 
-Histogram over SIS values (Spectral Information Similarities) as well as result of 10th to 100th precentile of predictions based on SIS, will pop up.
+Histogram over SIS values (Spectral Information Similarities) as well as result of 10th to 100th percentile of predictions based on SIS, will pop up.
 
-The predicted intentensenties along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1
+The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1
 
 
 **Prediction:**
@@ -110,12 +110,12 @@ Prediction, without experimental values, can be done both by direct input and by
     
 It is also possible to predict from file without the interactive script by:
 
-    cd graphormer/evaulate
+    cd graphormer/evaluate
     bash predict_quick.sh  <MODEL-DIR> <DATA>
 
 where <MODEL-DIR> are the FOLDER for the model to predict with, and <DATA> the path to the data to predict with. The data file should be ordered as the example _SMILES_to_predict.csv_
 
-The prediction result will be saved in a file called pred_result.csv. Furhtermore, the plotted spectrum will appear (can be saved manually)
+The prediction result will be saved in a file called pred_result.csv. Furthermore, the plotted spectrum will appear (can be saved manually).
 
 
 
