@@ -274,7 +274,6 @@ def main():
     elif hasattr(args, "save_dir"):
         for checkpoint_fname in os.listdir(args.save_dir):
             checkpoint_path = Path(args.save_dir) / checkpoint_fname
-            print("hi")
             logger.info(f"evaluating checkpoint file {checkpoint_path}")
             eval(args, False, checkpoint_path, logger)
 
