@@ -53,15 +53,12 @@ Possible phases (at the moment) is gas, KBr. nujol mull, liquid film and CCl4. T
     cd scripts
     python3 gen_splits.py <path_to_csv-file>
 
-This will generate four files: training_dataset.csv, testing_dataset.csv, valid_indices.csv and train_indices.csv placed in a folder named _Data_splits_. 
+This will generate four files: _training_dataset.csv_, _testing_dataset.csv, valid_indices.csv_ and _train_indices.csv_ placed in a folder named _Data_splits_. 
 
 ----------------------------------------------------------------------
 **Usage**
 
 It is possible to train a model from scratch, but the authors of Graphormer-IR made their best trained splits available online at Zenodo (https://github.com/HopkinsLaboratory/Graphormer-IR). Information of model training, architecture etc can be found there. 
-
-
-*Interactive scipts*
 
 
 There exist interactive scripts enabling fine-tuning, evaulation and prediction.
@@ -87,6 +84,7 @@ where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR> are the FOLDER for 
 NOTE: WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
 
 **Evulation:**
+
 Run Interactive_evaulation.sh in its location and answer all questions accordingly. 
 
     bash Interactive_evaulation.sh
@@ -115,6 +113,9 @@ It is also possible to predict from file without the interactive script by:
     bash predict_quick.sh  <MODEL-DIR> <DATA>
 
 where <MODEL-DIR> are the FOLDER for the model to predict with, and <DATA> the path to the data to predict with. The data file should be ordered as the example _SMILES_to_predict.csv_
+
+The prediction result will be saved in a file called pred_result.csv. Furhtermore, the plotted spectrum will appear (can be saved manually)
+
 
 
 
