@@ -18,11 +18,11 @@ This updated version allows for use with simple interactive scripts, but all oth
 The model is based on Pytorch, and thus required correct installation. Here, an installation for CUDA 11.5 to 11.8 is available. Follow these steps in order to install the model:
   1. Create a conda environment with python 3.9
      
-    conda create --name _<name_of_env>_ python=3.9
+    conda create --name <name_of_env> python=3.9
 
   2. Activate conda enviroment
      
-    conda activate _<name_of_env>_
+    conda activate <name_of_env>
 
   3. Clone github repository
      
