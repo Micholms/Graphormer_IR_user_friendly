@@ -58,7 +58,8 @@ Possible phases (at the moment) is gas, KBr. nujol mull, liquid film and CCl4. T
     cd scripts
     python3 gen_splits.py <path_to_csv-file>
 
-This will generate four files: _training_dataset.csv_, _testing_dataset.csv, valid_indices.csv_ and _train_indices.csv_ placed in a folder named _Data_splits_. 
+This will generate four files: _training_dataset.csv_, _testing_dataset.csv, valid_indices.csv_ and _train_indices.csv_ (placed in a folder named _Data_splits_. Move this to main folder for easier access.)
+
 
 **Usage**
 ----------------------------------------------------------------------
