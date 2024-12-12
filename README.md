@@ -11,7 +11,8 @@ The Graphormer-IR code is based on the original work Grahormer by the authors of
 
 This updated version allows for use with simple interactive scripts, but all other work should be credited to Cailum M. K. Stienstra, Liam Hebert, Patrick Thomas, Alexander Haack, Jason Guo and W. Scott Hopkins along Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di He, Yanming Shen and Tie-Yan Liu.
 
----------------------------**Set-up**------------------------------------------
+**Set-up**
+---------------------------------------------------------------------
 
 
 The model is based on Pytorch, and thus required correct installation. Here, an installation for CUDA 11.5 to 11.8 is available. Follow these steps in order to install the model:
