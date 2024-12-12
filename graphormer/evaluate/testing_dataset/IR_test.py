@@ -180,8 +180,6 @@ class IRSpectraD(DGLDataset):
         self.labels = []
         self.smiles = []
 
-        print("I'm in the right file")
-
         x = import_data(sys.argv[-1])
         x = x[1:] ## removing header
         
