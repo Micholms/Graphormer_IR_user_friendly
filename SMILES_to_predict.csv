@@ -1,0 +1,6 @@
+smiles,phase
+CC(=O)C12CC3CC(CC(C3)C1)C2,CCl4
+FC(F)(F)c1cc(Br)ccc1Br,gas
+OCC(Cl)(Cl)Cl,KBr
+OCC(Cl)(Cl)Cl,CCl4
+CCCCC,gas
