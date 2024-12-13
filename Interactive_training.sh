@@ -32,16 +32,12 @@ echo -n "                                                   Dataset path: "
 read -r dataset
 
 
-cp -r $dataset Graphormer-IR/graphormer/
+cp -r $dataset/*.csv ./
 
-#Graphormer-IR/scripts/make_splits_auto/splits_NIST_IR_Dataset/split_1/graphormer
-#echo
-#echo "Answers:"
-#echo "1. $model"
-#echo "2. $lr"
-#echo "3. $epochs"
-#echo "4. $save"
 
 bash Graphormer-IR/examples/property_prediction/Train_IR_model.sh $lr $epochs $model $save $dataset
 
-#rm -r $dataset Graphormer-IR/graphormer/
+rm testing_dataset.csv
+rm training_dataset.csv
+rm train_indices.csv
+rm valid_indices.csv
