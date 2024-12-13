@@ -78,7 +78,7 @@ Run Interactive_training.sh in its location and answer all questions accordingly
     
 It is also possible to fine tune without the interactive script by first move the files: training_dataset.csv, valid_indices.csv and train_indices.csv ( possibly in _Data_splits_). Here <dataset_path>/*.csv indicates folder and all csv in it. 
 
-    cp -r <dataset_path>/*.csv Graphormer-IR/examples/property_prediction/
+    cp <dataset_path>/*.csv Graphormer-IR/examples/property_prediction/
 
 Then:
 
