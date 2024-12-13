@@ -6,8 +6,6 @@ from rdkit import Chem
 import torch
 
 from .featurizing_helpers import *
-print("YOURE DEF IN THE RCORRECT FILE")
-
 import itertools
 
 import dgl
@@ -172,7 +170,7 @@ class IRSpectraD(DGLDataset):
             count +=1
 
         self.num_classes = 1801
-        super().__init__(name='IR Spectra', save_dir='/home/micholms/Document/Graphormer/examples/property_prediction/training_dataset/')
+        super().__init__(name='IR Spectra', save_dir='../')
 
     def process(self):
         
@@ -180,12 +178,9 @@ class IRSpectraD(DGLDataset):
         self.labels = []
         self.smiles = []
 
-        print("I'm in the right file")
-        directory=sys.argv[2]
         directory=os.getcwd()
         data_path = f'{directory}/training_dataset.csv'
         x = import_data(data_path)
-        #x = import_data(r'/home/micholms/Document/Graphormer-IR/scripts/make_splits_auto/splits_NIST_IR_Dataset/split_1/graphormer/training_dataset.csv')
         x = x[1:] ## removing header
         
 
@@ -301,33 +296,19 @@ class IRSpectraD(DGLDataset):
     
 @register_dataset("customized_IRSpectraDataset")
 def create_customized_dataset():
-    #print(str(sys.argv))
-    #directory = '/home/michaelah/Documents/Graphormer-IR/scripts/make_splits_auto/splits_NIST_IR_Dataset/split_1/graphormer'
-    directory=sys.argv[2]
     directory=os.getcwd()
-    #print(directory)
-    #fin = 'data' # no .csv  # CHANGE THIS
     data_path = f'{directory}/training_dataset.csv'
 
     dataset = IRSpectraD()
-    #print(dataset)
 
     print("Dataset has been Registered")
-    ind_path = f'{directory}/indices'
-    #ind_path = r'/home/michaelah/Documents/Graphormer-IR/scripts/make_splits_auto/splits_NIST_IR_Dataset/split_1/graphormer'
     ind_path=directory
     if os.path.exists(ind_path):
         rand_valid_idx = pd.read_csv(f'{ind_path}/valid_indices.csv', header=None).to_numpy(dtype=int).flatten()
-        print(rand_valid_idx)
-        print(rand_valid_idx.shape)
         rand_train_idx = pd.read_csv(f'{ind_path}/train_indices.csv', header=None).to_numpy(dtype=int).flatten()
-        print(rand_train_idx)
-        print(rand_train_idx.shape)
 
     else:
         print("Could not find indices")
-
-
 
     return {
         "dataset": dataset,
