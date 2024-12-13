@@ -35,7 +35,7 @@ read -r dataset
 cp -r $dataset/*.csv ./
 
 
-bash Graphormer-IR/examples/property_prediction/Train_IR_model.sh $lr $epochs $model $save $dataset
+bash Graphormer-IR/examples/property_prediction/Train_IR_model.sh $lr $epochs $model $save 
 
 rm testing_dataset.csv
 rm training_dataset.csv
