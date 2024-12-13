@@ -56,6 +56,3 @@ cp -r $testing Graphormer-IR/graphormer/evaluate/
 bash Graphormer-IR/graphormer/evaluate/evaluate_new.sh $model $testing
 
 
-rm -r Graphormer-IR/graphormer/evaluate/$model
-rm -r Graphormer-IR/graphormer/evaluate/$testing
-
