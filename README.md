@@ -76,17 +76,17 @@ Run Interactive_training.sh in its location and answer all questions accordingly
 
     bash Interactive_training.sh
     
-It is also possible to fine tune without the interactive script by first move the folder with training_dataset.csv, valid_indices.csv and train_indices.csv( possibly _Data_splits_)
+It is also possible to fine tune without the interactive script by first move the files: training_dataset.csv, valid_indices.csv and train_indices.csv ( possibly in _Data_splits_). Here <dataset_path>/*.csv indicates folder and all csv in it. 
 
-    cp -r <dataset_path> Graphormer-IR/graphormer/
-    
+    cp -r <dataset_path>/*.csv Graphormer-IR/examples/property_prediction/
+
 Then:
 
-    cd examples/property_prediction
+    cd Graphormer-IR/examples/property_prediction
   
     bash IRspec.sh <LR> <EPOCHS> <BASE-MODEL-DIR> <DIR_FOR_SAVING>
 
-where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR> are the FOLDER for the model to fine-tune, and <DIR_FOR_SAVING> the folder for the fine-tuned model 
+where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR< are the FOLDER for the model to fine-tune, and <DIR_FOR_SAVING> the folder for the fine-tuned model. It could be convenient to also move the base model to the _property_prediction_ folder
 
 NOTE: WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
 
