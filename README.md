@@ -76,21 +76,21 @@ Run Interactive_training.sh in its location and answer all questions accordingly
 
     bash Interactive_training.sh
     
-It is also possible to fine tune without the interactive script by first move the files: training_dataset.csv, valid_indices.csv and train_indices.csv ( possibly in _Data_splits_). Here <dataset_path>/*.csv indicates folder and all csv in it. 
+It is also possible to fine tune without the interactive script by first move the files: training_dataset.csv, valid_indices.csv and train_indices.csv ( possibly in _Data_splits_). Here <dataset_path>/*.csv indicates folder and all csv in it, for example _Data_splits/*.csv_.
 
     cp <dataset_path>/*.csv Graphormer-IR/examples/property_prediction/
 
-Then:
+Next move to correct folder and run script.
 
     cd Graphormer-IR/examples/property_prediction
   
     bash IRspec.sh <LR> <EPOCHS> <BASE-MODEL-DIR> <DIR_FOR_SAVING>
 
-where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR< are the FOLDER for the model to fine-tune, and <DIR_FOR_SAVING> the folder for the fine-tuned model. It could be convenient to also move the base model to the _property_prediction_ folder
+where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR> are the FOLDER for the model to fine-tune, and <DIR_FOR_SAVING> the folder for the fine-tuned model. It could be convenient to also move the base model to the _property_prediction_ folder
 
-NOTE: WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
+**NOTE:** WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
 
-NOTE: If downloading from Zenodo, put the model in a folder. For example "base_model/split1_0.8516.pt" then use _base_model_ as BASE-MODEL-DIR.
+**NOTE:** If downloading from Zenodo, put the model in a folder. For example "base_model/split1_0.8516.pt" then use _base_model_ as <BASE-MODEL-DIR> .
 
 
 **Evulation:**
@@ -108,7 +108,7 @@ where <MODEL-DIR> are the FOLDER for the model to evaluate, and <DATA> the path 
 
 Histogram over SIS values (Spectral Information Similarities) as well as result of 10th to 100th percentile of predictions based on SIS, will pop up.
 
-The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1
+The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1.
 
 
 **Prediction:**
