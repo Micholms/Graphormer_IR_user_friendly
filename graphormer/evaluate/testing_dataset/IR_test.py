@@ -172,7 +172,7 @@ class IRSpectraD(DGLDataset):
             count +=1
 
         self.num_classes = 1801
-        super().__init__(name='IR Spectra', save_dir='/home/michaelah/Documents/Graphormer-IR/examples/property_prediction/training_dataset/')
+        super().__init__(name='IR Spectra', save_dir='../')
 
     def process(self):
         
