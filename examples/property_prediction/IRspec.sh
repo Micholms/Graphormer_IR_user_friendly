@@ -12,17 +12,17 @@
 	--attention-dropout 0.10 --act-dropout 0.10 --dropout 0.10 \
 	--optimizer adam --adam-betas '(0.9, 0.999)' --adam-eps 1e-8 --clip-norm 5.0 --weight-decay 0.01 \
 	--lr-scheduler polynomial_decay --power 1 --warmup-updates 56250 --total-num-update 375000\
-	--lr 0.19 \
+	--lr $1 \
 	--fp16 \
     --encoder-layers 4 \
     --encoder-embed-dim  2100 \
     --encoder-ffn-embed-dim 2100 \
     --encoder-attention-heads 210 \
     --mlp-layers 3\
-    --wandb-project "updated_data"\
+    --wandb-project "interactive_test"\
     --batch-size 32 \
-	--max-epoch 20 \
+	--max-epoch $2 \
 	--no-last-checkpoints  \
-	--finetune-from-model '/home/michaelah/Documents/Graphormer-IR/model/split1_0.8516.pt' \
+	--finetune-from-model $3 \
 	--no-epoch-checkpoints \
-	--save-dir '/home/michaelah/Documents/Graphormer-IR/Updated_data/checkpoints_split1_20_epochs_lr_0.19'\
+	--save-dir $4
