@@ -67,23 +67,17 @@ def translate_to_chemprop(df):
 
 def gen_splits(file: str, directory: str, num_splits: int):
     ## Generates train/test/spits for data in the format of the csv file. Makes sure that there are no repeat smiles in different splits
-    #if os.path.exists(f'{directory}/Data_test'):
-    #      pass
-    #else:
-     #   os.makedirs(f'{directory}/Data_test')
+    if os.path.exists(f'{directory}/Data_splits'):
+          pass
+    else:
+        os.makedirs(f'{directory}/Data_splits')
     
 
     df = pd.read_csv(file)
     df = df.sample(frac = 1)
 
     for i in range(num_splits):
-        #if os.path.exists(f'{directory}/Data_set'):
-        #   pass
-       # else:
-         #   os.mkdir(f'{directory}/Data_set')
-#
-        
-
+      
         train_df, train_idx, test_df, test_idx = get_indices(df, 0.01, 0.005, 0.9)
         print('################################################################')
         print(f'Split Number {i + 1}')
@@ -100,32 +94,14 @@ def gen_splits(file: str, directory: str, num_splits: int):
         print("Fraction of valid / total", new_valid_df.shape[0] / df.shape[0])
         print("Fraction of training - valid / total", new_train_df.shape[0] / df.shape[0])
 
-        #graphormer_outpath = f'{outpath}/split_{i + 1}/graphormer'
-     #   chemprop_outpath = f'{outpath}/split_{i + 1}/chemprop' 
-        graphormer_outpath=f'{directory}/Data_set'
-        graphormer_outpath=f'{directory}'
+        graphormer_outpath=f'{directory}/Data_splits'
         
         pd.DataFrame(rand_valid_idx).transpose().to_csv(f'{graphormer_outpath}/valid_indices.csv', header=None, index=False)
         pd.DataFrame(rand_train_idx).transpose().to_csv(f'{graphormer_outpath}/train_indices.csv', header=None, index=False)
         
         test_df.to_csv(f'{graphormer_outpath}/testing_dataset.csv', header=None, index=False, na_rep='nan')
         train_df.to_csv(f'{graphormer_outpath}/training_dataset.csv', header=None, index=False, na_rep='nan')
-
-      #  test_smiles_phase_df, test_phase_df, test_spectra_df = translate_to_chemprop(test_df)
-      #  train_smiles_phase_df, train_phase_df, train_spectra_df = translate_to_chemprop(new_train_df)
-        #valid_smiles_phase_df, valid_phase_df, valid_spectra_df = translate_to_chemprop(new_valid_df)
-        
-       # test_spectra_df.to_csv(f'{chemprop_outpath}/testing_dataset.csv', header=True, index=False, na_rep='nan')
-       # test_phase_df.to_csv(f'{chemprop_outpath}/testing_phase.csv', header=True, index=False)
-       # test_smiles_phase_df.to_csv(f'{chemprop_outpath}/debugging/test_smiles_phase.csv', header=None, index=False)
-        
-        #train_spectra_df.to_csv(f'{chemprop_outpath}/training_dataset.csv', header=True, index=False, na_rep='nan')
-      #  train_phase_df.to_csv(f'{chemprop_outpath}/training_phase.csv', header=True, index=False)
-        #train_smiles_phase_df.to_csv(f'{chemprop_outpath}/debugging/train_smiles_phase.csv', header=None, index=False)
-        
-       # valid_spectra_df.to_csv(f'{chemprop_outpath}/valid_dataset.csv', header=True, index=False, na_rep='nan')
-       # valid_phase_df.to_csv(f'{chemprop_outpath}/valid_phase.csv', header=True, index=False)
-      #  valid_smiles_phase_df.to_csv(f'{chemprop_outpath}/debugging/valid_smiles_phase.csv', header=None, index=False)
+    
         print("Training: ",len(train_df), "Testing: ",len(test_df))
-#gen_splits('sample_data/NIST_IR_Dataset.csv','~/Documents', 1)
+
 gen_splits(sys.argv[1],os.getcwd(), 1)
