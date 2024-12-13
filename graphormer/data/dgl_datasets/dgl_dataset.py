@@ -19,7 +19,6 @@ import logging
 
 logger = logging.getLogger(__name__)
 logger.setLevel(20)
-#print(logger.getEffectiveLevel(), "THIS IS THE LEVEL")
 
 class GraphormerDGLDataset(Dataset):
     def __init__(self,
