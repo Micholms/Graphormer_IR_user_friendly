@@ -5,8 +5,6 @@
 #In conda env: conda create -n name_of_env python=3.9
 mv ./*.sh ../
 cd ..
-mv Graphormer_IR_user_friendly ./Graphormer-IR
-
 
 pip install 'numpy<1.24'
 pip install pip==24
