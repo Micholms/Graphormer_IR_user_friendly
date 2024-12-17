@@ -26,11 +26,11 @@ The model is based on Pytorch, and thus required correct installation. Here, an 
 
   3. Clone github repository
      
-    git clone --recursive https://github.com/Micholms/Graphormer_IR_user_friendly
+    git clone --recursive https://github.com/Micholms/Graphormer_IR_user_friendly./Graphormer-IR
 
-  4. Move into Graphormer_IR_user_friendly
+  4. Move into Graphormer-IR
      
-    cd Graphormer_IR_user_friendly
+    cd Graphormer-IR
 
   5. Run install for CUDA 11.5/11.8
   
