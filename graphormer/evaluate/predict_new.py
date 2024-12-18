@@ -258,6 +258,8 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     for row in stack:
                         csvwriter.writerow(row)
 
+                print("maybe saved to: ", cwd, "or ", "./pred_results.csv")
+
 
             
 
