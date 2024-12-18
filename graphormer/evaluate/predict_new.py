@@ -259,6 +259,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                         csvwriter.writerow(row)
 
                 print("maybe saved to: ", cwd, "or ", "./pred_results.csv")
+                print(os.listdir(cwd))
 
 
             
