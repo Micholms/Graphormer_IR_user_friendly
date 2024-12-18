@@ -263,7 +263,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 wv_pred = [str(i) for i in wv]
                 header = wv_pred + ['smiles','phase', "ID"]
                 cwd = os.getcwd()
-                with open('./pred_results.csv', 'w', newline='\n') as csvfile:
+                with open('./files/pred_results.csv', 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
                     for row in stack:
