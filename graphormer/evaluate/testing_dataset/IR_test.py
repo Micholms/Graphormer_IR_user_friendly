@@ -181,6 +181,10 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         x = import_data(sys.argv[-1])
+        x_old=x
+        
+        col_names=x[0]
+        
         x = x[1:] ## removing header
         
         print("Loading Data and Converting SMILES to DGL graphs")
@@ -190,10 +194,18 @@ class IRSpectraD(DGLDataset):
         count = 0
         count_hash = 0
         for i in tqdm(x):
+            
             sm = str(i[0]).replace("Q", "#") ## Hashtags break some of our preprocessing scripts so we replace them with Qs to make life easier 
             phase = i[1]
-
-            sp = torch.tensor(np.asarray(i[2:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu')) 
+            
+            if "org_names" in col_names:
+                sp = torch.tensor(np.asarray(i[3:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
+                ID=i[2]
+            else: 
+                sp = torch.tensor(np.asarray(i[2:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
+                #names_org=x_old[2]
+                #print(names_org)
+                
             sp = torch.clip(sp, min = 10e-8) # clipping
             sp_nanmask = torch.isnan(sp)
             sp[sp_nanmask] = 0 ## Masking out all NaN values
@@ -206,7 +218,7 @@ class IRSpectraD(DGLDataset):
             num_atoms = mol.GetNumAtoms()
 
             add_self_loop = False
-            g = mol_to_bigraph(mol, explicit_hydrogens=False, node_featurizer=GraphormerAtomFeaturizer(), edge_featurizer=CanonicalBondFeaturizer(), add_self_loop=False) ## uses DGL featurization function                
+            g = mol_to_bigraph(mol, explicit_hydrogens=False, node_featurizer=GraphormerAtomFeaturizer(), edge_featurizer=CanonicalBondFeaturizer(), add_self_loop=False) ## uses DGL featurization function
             ###########################################################################
             count1 = 0
             count2 = 0
