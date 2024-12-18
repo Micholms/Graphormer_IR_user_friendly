@@ -1,17 +1,19 @@
 import torch
 import numpy as np
+import sys
+
 from fairseq import checkpoint_utils, utils, options, tasks
 from fairseq.logging import progress_bar
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
 import ogb
-import sys
+
 import os
 import pandas as pd
 from pathlib import Path
 from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 import math
-import sys
+
 from os import path
 import pickle
 from tqdm import tqdm
@@ -33,7 +35,7 @@ def import_data(file):
         data=[]
         for row in r:
             data.append(row)
-        print("Data imported")
+        print("Data imported") 
         return data
 
 def gen_histogram(d_set):
@@ -205,6 +207,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             sim_L = []
             eval_only=True
             phase = import_data(sys.argv[-1])
+            
             save = True
 
             total = len(y_pred)//dset_size
@@ -218,6 +221,10 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
             for i in range(total):
                 smiles = smilesL[i]
+                ph = phase[i][1]
+                if type(phase[i][2])==str:
+                    ID=phase[i][2]
+                else: ID=[]
                 subL = []
 
                 y_val_true = np.asarray(y_true[i*dset_size: (i+1)*dset_size], dtype=np.float64)
@@ -226,7 +233,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
 
                 if eval_only:
-                    print("Prediction for:", smiles)
+                    
                     wv =np.arange(400, 4002, 2)
                     conv1=np.matmul(y_val_pred,conv_matrix)
                     sum1=np.nansum(conv1)
@@ -235,13 +242,17 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     norm1=list(norm1)
                     #norm2.extend(norm1)
                     norm1.extend([smiles])
+                    norm1.extend([ph])
+                    norm1.extend([ID])
+                    print("Prediction for:", smiles, "in: ",ph,", with ID: ",ID)
                     stack.append(norm1)
 
-
-                    plt.plot(wv, y_val_pred)
-                    plt.title(smiles + ". Phase: " +phase[i][1])
-                    plt.show()## if there is no target spectra (testing predictions)
-                    continue
+                    if len(smilesL)<20:
+                        plt.plot(wv, y_val_pred)
+                        plt.title(smiles + ". Phase: " +phase[i][1])
+                        plt.show()## if there is no target spectra (testing predictions)
+                        continue
+                    else:continue
 
 
             if save:
@@ -250,16 +261,14 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 wv =np.arange(400, 4002, 2)
                 #wv_true = [str(i) + '_true' for i in wv]
                 wv_pred = [str(i) for i in wv]
-                header = wv_pred + ['smiles']
+                header = wv_pred + ['smiles','phase', "ID"]
                 cwd = os.getcwd()
                 with open('./pred_results.csv', 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
                     for row in stack:
                         csvwriter.writerow(row)
-
-                print("maybe saved to: ", cwd, "or ", "./pred_results.csv")
-                print(os.listdir(cwd))
+                print("Results saved as: pred_results.csv")
 
 
             
