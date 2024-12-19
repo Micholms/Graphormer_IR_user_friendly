@@ -222,7 +222,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             for i in range(total):
                 smiles = smilesL[i]
                 ph = phase[i][1]
-                if type(phase[i][2])==str:
+                if len(phase[i])>2:
                     ID=phase[i][2]
                 else: ID=[]
                 subL = []
