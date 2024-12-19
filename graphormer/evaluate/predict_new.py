@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import sys
-
+import streamlit as st
 from fairseq import checkpoint_utils, utils, options, tasks
 from fairseq.logging import progress_bar
 from fairseq.dataclass.utils import convert_namespace_to_omegaconf
@@ -251,6 +251,13 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                         plt.plot(wv, y_val_pred)
                         plt.title(smiles + ". Phase: " +phase[i][1])
                         plt.show()## if there is no target spectra (testing predictions)
+
+                        
+                        fig, ax = plt.subplots()
+                        ax.plot(wv, y_val_pred)
+                        ax.title(smiles + ". Phase: " +phase[i][1])
+                        fig.show()## if there is no target spectra (testing predictions)
+                        st.pyplot(fig)
                         continue
                     else:continue
 
