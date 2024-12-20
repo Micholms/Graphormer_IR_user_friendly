@@ -125,8 +125,9 @@ It is also possible to predict from file without the interactive script by:
 where <MODEL-DIR> are the FOLDER for the model to predict with, and <DATA> the path to the data to predict with. The data file should be ordered as the example _SMILES_to_predict.csv_
 
 The prediction result will be saved in a file called pred_result.csv. Furthermore, the plotted spectrum will appear (can be saved manually).
-_
-Update: it is now possble to choose either the folder for the model or the model file (checkpoint file) for prediction. _
+
+
+Update: it is now possble to choose either the folder for the model or the model file (checkpoint file) for **prediction**. 
 
 
 
