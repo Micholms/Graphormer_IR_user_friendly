@@ -271,11 +271,21 @@ def main():
     logger = logging.getLogger(__name__)
     if args.pretrained_model_name != "none":
         eval(args, True, logger=logger)
+    #elif hasattr(args, "save_dir"):
+     #   for checkpoint_fname in os.listdir(args.save_dir):
+       #     checkpoint_path = Path(args.save_dir) / checkpoint_fname
+        #    logger.info(f"evaluating checkpoint file {checkpoint_path}")
+        #    eval(args, False, checkpoint_path, logger)
     elif hasattr(args, "save_dir"):
-        for checkpoint_fname in os.listdir(args.save_dir):
-            checkpoint_path = Path(args.save_dir) / checkpoint_fname
+        if os.path.isdir(args.save_dir):
+            print("folder")
+            for checkpoint_fname in os.listdir(args.save_dir):
+                checkpoint_path = Path(args.save_dir) / checkpoint_fname
+                logger.info(f"evaluating checkpoint file {checkpoint_path}")
+        else:
+            print("file")
+            checkpoint_path=args.save_dir
             logger.info(f"evaluating checkpoint file {checkpoint_path}")
-            eval(args, False, checkpoint_path, logger)
-
+        eval(args, False, checkpoint_path, logger)
 if __name__ == '__main__':
     main()
