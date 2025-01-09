@@ -200,7 +200,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
             dset_size = 1801 ## size of wavenumber vector (400, 4000) 1801 before
             sim_L = []
-            eval_only=True
+            eval_only=False #False if evaluation w SIS
             phase = import_data(sys.argv[-1])
 
             save = True
