@@ -254,7 +254,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 wv = np.arange(400, 4000, 2)
                 wv_true = [str(i) + '_true' for i in wv]
                 wv_pred = [str(i) + '_pred' for i in wv]
-                header = wv_true + wv_pred + ['smiles','phase', "ID", "SIS"]
+                header = wv_true + wv_pred + ['smiles','phase', "ID", "sim"]
                 with open('./eval_results.csv', 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
