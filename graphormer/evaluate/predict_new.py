@@ -252,12 +252,6 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                         plt.title(smiles + ". Phase: " +phase[i][1])
                         plt.show()## if there is no target spectra (testing predictions)
 
-                        # Aim here is to be able to use this which streamlit, but get error right now
-                        #fig, ax = plt.subplots()
-                        #ax.plot(wv, y_val_pred)
-                        #ax.set_title(smiles + ". Phase: " +phase[i][1])
-                        #fig.show()## if there is no target spectra (testing predictions)
-                        #st.pyplot(fig)
                         continue
                     else:continue
 
