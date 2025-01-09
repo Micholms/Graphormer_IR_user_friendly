@@ -198,9 +198,11 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             y_true = np.asarray(y_true, dtype = np.float64)
             y_pred = np.asarray(y_pred, dtype = np.float64)
 
-            dset_size = 1801 ## size of wavenumber vector (400, 4000)
+            dset_size = 1801 ## size of wavenumber vector (400, 4000) 1801 before
             sim_L = []
-            eval_only = False ## If there is no target specra
+            eval_only=True
+            phase = import_data(sys.argv[-1])
+
             save = True
 
             total = len(y_pred)//dset_size
@@ -210,21 +212,30 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             stack = []
             sim_solo = []
 
-            for i in range(total): 
+            for i in range(total):
                 smiles = smilesL[i]
+                ph = phase[i][1]
+                if len(phase[i])>1803:
+                    ID=phase[i][2]
+                else: ID=[]
                 subL = []
+
                 y_val_true = np.asarray(y_true[i*dset_size: (i+1)*dset_size], dtype=np.float64)
                 y_val_pred = y_pred[i*dset_size: (i+1)*dset_size] ## Grabbing batched data
                 y_val_pred /= np.nanmax(y_val_pred) ## normalizing to sum
 
+
                 if eval_only:
                     conv1=np.matmul(y_val_pred,conv_matrix)
                     sum1=np.nansum(conv1)
-                    norm1=conv1/sum1 ## prediction 
+                    norm1=conv1/sum1 ## prediction
                     norm2 = list(np.zeros_like(norm1)) # padded true value
-                    norm2.extend(norm1)
-                    norm2.extend([smiles, 'eval'])
-                    stack.append(norm2) ## if there is no target spectra (testing predictions)
+                    #norm2.extend(norm1)
+                    norm1=list(norm1)
+                    norm1.extend([ph])
+                    norm1.extend([ID])
+                    norm1.extend([smiles, 'eval'])
+                    stack.append(norm1) ## if there is no target spectra (testing predictions)
                     continue
 
                 else:
@@ -240,7 +251,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 wv = np.arange(400, 4000, 2)
                 wv_true = [str(i) + '_true' for i in wv]
                 wv_pred = [str(i) + '_pred' for i in wv]
-                header = wv_true + wv_pred + ['smiles', 'sim']
+                header = wv_true + wv_pred + ['smiles','phase', "ID", "SIS"]
                 with open('./eval_results.csv', 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
@@ -283,3 +294,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
