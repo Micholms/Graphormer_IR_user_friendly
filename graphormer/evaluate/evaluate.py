@@ -200,7 +200,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
             dset_size = 1801 ## size of wavenumber vector (400, 4000) 1801 before
             sim_L = []
-            eval_only=True
+            eval_only=False
             phase = import_data(sys.argv[-1])
 
             save = True
@@ -245,6 +245,9 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles) ## this contains smiles, and the normalized vectors
 
                     sim_L.append(float(sim[-1]))
+                    stack.append(smiles)
+                    stack.append(ph)
+                    stack.append(ID)
                     stack.append(sim)
 
             if save:
