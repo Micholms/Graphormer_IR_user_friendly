@@ -201,9 +201,9 @@ class IRSpectraD(DGLDataset):
             if "org_names" in col_names:
                 sp = torch.tensor(np.asarray(i[3:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
                 ID=i[2]
-            #elif len(col_names)>1803:
-                #sp = torch.tensor(np.asarray(i[3:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
-                #ID=i[2]
+            elif len(col_names)>1803:
+                sp = torch.tensor(np.asarray(i[3:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
+                ID=i[2]
             else: 
                 sp = torch.tensor(np.asarray(i[2:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
                 #names_org=x_old[2]
