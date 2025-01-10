@@ -12,7 +12,6 @@ from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 import math
 import sys
-import streamlit as st
 from os import path
 import pickle
 from tqdm import tqdm
@@ -97,7 +96,6 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
 
     distance=(norm1*np.log(norm1/norm2)+norm2*np.log(norm2/norm1))
     distance[0,nan_mask] = 0
-
 
     sim=1/(1+np.sum(distance)) ## Calculating SIS
 
@@ -215,9 +213,10 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             for i in range(total):
                 smiles = smilesL[i]
                 ph = phase[i][1]
+                print("lenght",len(phase[i]))
                 if len(phase[i])>1803:
                     ID=phase[i][2]
-                else: ID=[]
+                else: ID="no ID"
                 subL = []
 
                 y_val_true = np.asarray(y_true[i*dset_size: (i+1)*dset_size], dtype=np.float64)
@@ -245,18 +244,18 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles) ## this contains smiles, and the normalized vectors
 
                     sim_L.append(float(sim[-1]))
-                    stack.append(smiles)
+                    
+                    stack.append(sim) #Including wn values, smiles, sim
                     stack.append(ph)
                     stack.append(ID)
-                    stack.append(sim)
-                    st.write(stack)
+                    
                     print(stack)
 
             if save:
                 wv = np.arange(400, 4002, 2)
                 wv_true = [str(i) + '_true' for i in wv]
                 wv_pred = [str(i) + '_pred' for i in wv]
-                header = wv_true + wv_pred + ['smiles','phase', "ID", "sim"]
+                header = wv_true + wv_pred + ['smiles',"sim",'phase', "ID" ]
                 with open('./eval_results.csv', 'w', newline='\n') as csvfile:
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
