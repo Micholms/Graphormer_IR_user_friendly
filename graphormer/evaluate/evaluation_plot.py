@@ -5,9 +5,10 @@ import numpy as np
 
 
 def get_true_pred(df):
-    true=df.iloc[:,:1800]
+    true=df.iloc[:,:1801]
     true.index=df["smiles"]
-    pred=df.iloc[:,1800:]
+    pred=df.iloc[:,1801:]
+    pred=pred.drop(columns=["phase", "ID"])
     pred.index=df["smiles"]
     true["sim"]=pred["sim"]
     return true, pred
@@ -32,7 +33,7 @@ def plot_percentile(df,true, pred,p_range):
      
         true_v=true.iloc[index,:-1]
         pred_v=pred.iloc[index,:-2]
-        x=np.arange(400,4000,2)
+        x=np.arange(400,4002,2)
         ax[m,n].plot(x,true_v/true_v.max(), label="True")
         ax[m,n].plot(x,pred_v/pred_v.max(), label="Pred")
         ax[m,n].legend()
