@@ -245,7 +245,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
                     sim_L.append(float(sim[-1]))
                     
-                    stack.extend(sim) #Including wn values, smiles, sim
+                    stack.append(sim) #Including wn values, smiles, sim
                     stack.append(ph)
                     stack.append(ID)
                     
@@ -260,7 +260,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
                     for row in stack:
-                        print("row", row)
+                        #print("row", row)
                         csvwriter.writerow(row)
                 print("Saved file")
             m = np.round(np.mean(sim_L), 5)
