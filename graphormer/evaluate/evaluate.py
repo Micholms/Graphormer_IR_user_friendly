@@ -214,7 +214,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 smiles = smilesL[i]
                 ph = phase[i][1]
                 print("lenght",len(phase[i]))
-                if len(phase[i])>1803:
+                if len(phase[i])>1802:
                     ID=phase[i][2]
                 else: ID="no ID"
                 subL = []
@@ -246,8 +246,8 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     sim_L.append(float(sim[-1]))
                     
                     stack.append(sim) #Including wn values, smiles, sim
-                    stack.append(ph)
-                    stack.append(ID)
+                    stack.extend([ph])
+                    stack.extend([ID])
                     
                     print("stack",stack, len(stack))
             print("stack",stack, len(stack))
