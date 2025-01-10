@@ -245,12 +245,12 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
                     sim_L.append(float(sim[-1]))
                     
-                    stack.append(sim) #Including wn values, smiles, sim
+                    stack.extend(sim) #Including wn values, smiles, sim
                     stack.append(ph)
                     stack.append(ID)
                     
-                    print(stack)
-
+                    print("stack",stack, len(stack))
+            print("stack",stack, len(stack))
             if save:
                 wv = np.arange(400, 4002, 2)
                 wv_true = [str(i) + '_true' for i in wv]
@@ -260,7 +260,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     csvwriter = csv.writer(csvfile, delimiter=',')
                     csvwriter.writerow(header)
                     for row in stack:
-                        print(row)
+                        print("row", row)
                         csvwriter.writerow(row)
                 print("Saved file")
             m = np.round(np.mean(sim_L), 5)
