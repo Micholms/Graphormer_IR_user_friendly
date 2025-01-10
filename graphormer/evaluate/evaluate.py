@@ -67,7 +67,7 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
     spectrum1[nan_mask]= 0
     spectrum2[nan_mask]= 0 ## nan mask, clipping
 
-    normalize = False 
+    normalize = False
     if normalize:## This term normalizes the fingerprint region to sum to 1 according to teh bounds n1,n - discussed in paper in more detail why we do this
 
         spectrum1 /= np.sum(spectrum1)
@@ -106,7 +106,7 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
         return sim
 
 def eval(args, use_pretrained, checkpoint_path=None, logger=None):
-    cfg = convert_namespace_to_omegaconf(args) 
+    cfg = convert_namespace_to_omegaconf(args)
     np.random.seed(cfg.common.seed)
     utils.set_torch_seed(cfg.common.seed)
     # initialize task
@@ -185,14 +185,14 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             input_dict = {'y_pred': y_pred, 'y_true': y_true}
             result_dict = evaluator.eval(input_dict)
             logger.info(f'PCQM4Mv2Evaluator: {result_dict}')
-    else: 
+    else:
         if args.metric == "auc":
             auc = roc_auc_score(y_true, y_pred)
             logger.info(f"auc: {auc}")
         elif args.metric == "mae":
             mae = np.mean(np.abs(y_true - y_pred))
             logger.info(f"mae: {mae}")
-        else: 
+        else:
             y_true = np.asarray(y_true, dtype = np.float64)
             y_pred = np.asarray(y_pred, dtype = np.float64)
 
@@ -240,17 +240,21 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 else:
                     sp = y_val_true / np.nanmax(y_val_true)
                     y_val_true /= np.nanmax(y_val_true)
-                    
+
                     sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles) ## this contains smiles, and the normalized vectors
 
                     sim_L.append(float(sim[-1]))
-                    
-                    stack.append(sim) #Including wn values, smiles, sim
-                    stack.extend([ph])
-                    stack.extend([ID])
-                    
-                    print("stack",stack, len(stack))
-            print("stack",stack, len(stack))
+
+                    #sim=list(sim)
+                    #sim.extend([ph])
+                    #sim.extend([ID])
+                    norm1=[]
+                    norm1.extend(sim) #Including wn values, smiles, sim
+                    norm1.extend([ph])
+                    norm1.extend([ID])
+                    stack.append(norm1)
+                    print(len(stack))
+            print(stack[0][-6:])
             if save:
                 wv = np.arange(400, 4002, 2)
                 wv_true = [str(i) + '_true' for i in wv]
@@ -299,4 +303,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
