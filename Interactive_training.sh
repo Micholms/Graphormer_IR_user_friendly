@@ -10,16 +10,16 @@ echo "                                                 Answer all questions acco
 
 "
 
-echo '                                                 Enter base model DIRECTORY'
-echo -n "                                                   Model DIRECTORY: "
+echo '                                                 Enter base model'
+echo -n "                                                   Model path "
 read -r model
 
-until  test -d ./$model
+until  test -f ./$model
 do
-    echo -n "                                                 Model DIRECTORY doesn't exist. Enter model DIRECTORY path: "
+    echo -n "                                                 Model file doesn't exist. Enter model path: "
     read -r model
 done
-echo $'\033[1m                                                 Directory exists.
+echo $'\033[1m                                                 Model file exists.
 
 '
 
