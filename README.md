@@ -61,6 +61,8 @@ Possible phases (at the moment) are gas, KBr. nujol mull, liquid film and CCl4. 
 This will generate four files: _training_dataset.csv_, _testing_dataset.csv, valid_indices.csv_ and _train_indices.csv_ (placed in a folder named _Data_splits_. Move this to main folder for easier access.) The gen_splits code can be tested with the _NIST_IR_Dataset.csv_ as input, and then this can be used for training and evaluation. 
 
 
+_NOTE_: It is important that the data used is in the range 400 to 4000 cm-1 with steps of 2 cm-1. 
+
 **Usage**
 ----------------------------------------------------------------------
 
@@ -88,7 +90,7 @@ Next move to correct folder and run script.
 
 where <LR> and <EPOCHS> are numeric number, <BASE-MODEL> are the PATH for the model to fine-tune, and <DIR_FOR_SAVING> the FOLDER to save the fine-tuned model in. It could be convenient to also move the base model to the _property_prediction_ folder
 
-**NOTE:** WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
+_NOTE:_ WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
 
 
 **Evulation:**
@@ -108,7 +110,7 @@ Histogram over SIS values (Spectral Information Similarities) as well as result 
 
 The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1.
 
-NOTE: The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, with header "smiles, phase, org_names, 400, ... , 4000"
+_NOTE: _The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, and the csv file should have header "smiles, phase, org_names, 400, ... , 4000"
 
 
 **Prediction:**
