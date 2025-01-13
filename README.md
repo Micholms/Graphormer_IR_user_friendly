@@ -110,7 +110,8 @@ Histogram over SIS values (Spectral Information Similarities) as well as result 
 
 The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1.
 
-_NOTE:_ The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, and the csv file should have header "smiles, phase, org_names, 400, ... , 4000"
+_NOTE:_ The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, and the csv file should have header:
+"smiles, phase, org_names, 400, ... , 4000"   (400 to 4000 cm-1 with step of 2 cm-1)
 
 
 **Prediction:**
