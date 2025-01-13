@@ -55,7 +55,7 @@ It is possible to fine-tune a split with use of your own data. The input should 
 
 Possible phases (at the moment) are gas, KBr. nujol mull, liquid film and CCl4. Training, validation and testing split can be created by running the csv-file through gen_splits.py (found in _scripts_ )
 
-    cd scripts
+    cd Graphormer-IR/scripts
     python3 gen_splits.py <path_to_csv-file>
 
 This will generate four files: _training_dataset.csv_, _testing_dataset.csv, valid_indices.csv_ and _train_indices.csv_ (placed in a folder named _Data_splits_. Move this to main folder for easier access.) The gen_splits code can be tested with the _NIST_IR_Dataset.csv_ as input, and then this can be used for training and evaluation. 
@@ -84,13 +84,11 @@ Next move to correct folder and run script.
 
     cd Graphormer-IR/examples/property_prediction
   
-    bash IRspec.sh <LR> <EPOCHS> <BASE-MODEL-DIR> <DIR_FOR_SAVING>
+    bash IRspec.sh <LR> <EPOCHS> <BASE-MODEL> <DIR_FOR_SAVING>
 
-where <LR> and <EPOCHS> are numeric number, <BASE-MODEL-DIR> are the FOLDER for the model to fine-tune, and <DIR_FOR_SAVING> the folder for the fine-tuned model. It could be convenient to also move the base model to the _property_prediction_ folder
+where <LR> and <EPOCHS> are numeric number, <BASE-MODEL> are the PATH for the model to fine-tune, and <DIR_FOR_SAVING> the FOLDER to save the fine-tuned model in. It could be convenient to also move the base model to the _property_prediction_ folder
 
 **NOTE:** WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
-
-**NOTE:** If downloading from Zenodo, put the model in a folder. For example "base_model/split1_0.8516.pt" then use _base_model_ as <BASE-MODEL-DIR> .
 
 
 **Evulation:**
@@ -110,6 +108,8 @@ Histogram over SIS values (Spectral Information Similarities) as well as result 
 
 The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1.
 
+NOTE: The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, with header "smiles, phase, org_names, 400, ... , 4000"
+
 
 **Prediction:**
 
@@ -122,12 +122,12 @@ It is also possible to predict from file without the interactive script by:
     cd graphormer/evaluate
     bash predict_quick.sh  <MODEL-DIR> <DATA>
 
-where <MODEL-DIR> are the FOLDER for the model to predict with, and <DATA> the path to the data to predict with. The data file should be ordered as the example _SMILES_to_predict.csv_
+where <MODEL-DIR> are the FOLDER or PATH for the model to predict with, and <DATA> the PATH to the data to predict with. The data file should be ordered as the example _SMILES_to_predict.csv_
 
 The prediction result will be saved in a file called pred_result.csv. Furthermore, the plotted spectrum will appear (can be saved manually).
 
 
-Update: it is now possble to choose either the folder for the model or the model file (checkpoint file) for **prediction**. 
+**Update**: it is now possble to choose either the folder for the model or the model file (checkpoint file) for **prediction**. 
 
 
 
