@@ -78,11 +78,11 @@ Run Interactive_training.sh in its location and answer all questions accordingly
 
     bash Interactive_training.sh
     
-It is also possible to fine tune without the interactive script by first move the files: training_dataset.csv, valid_indices.csv and train_indices.csv ( possibly in _Data_splits_). Here <dataset_path>/*.csv indicates folder and all csv in it, for example _Data_splits/*.csv_.
+It is also possible to fine tune without the interactive script by first move the files: training_dataset.csv, valid_indices.csv and train_indices.csv ( possibly in _Data_splits_). 
 
     cp <dataset_path>/*.csv Graphormer-IR/examples/property_prediction/
 
-Next move to correct folder and run script.
+Here <dataset_path>/*.csv indicates folder and all csv in it, for example _Data_splits/*.csv_.  Next move to correct folder and run script.
 
     cd Graphormer-IR/examples/property_prediction
   
@@ -90,7 +90,7 @@ Next move to correct folder and run script.
 
 where <LR> and <EPOCHS> are numeric number, <BASE-MODEL> are the PATH for the model to fine-tune, and <DIR_FOR_SAVING> the FOLDER to save the fine-tuned model in. It could be convenient to also move the base model to the _property_prediction_ folder
 
-_NOTE:_ WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
+_NOTE:_  WandB is included in these scripts, edit Train_IR_model.sh and IRspec.sh for interactive or normal usage, respectively, to remove/change this.  
 
 
 **Evulation:**
@@ -110,7 +110,7 @@ Histogram over SIS values (Spectral Information Similarities) as well as result 
 
 The predicted intensities along with SIS values and true values will be obtain in a csv file (_eval_result.csv_), for 400-4000 cm-1.
 
-_NOTE: _The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, and the csv file should have header "smiles, phase, org_names, 400, ... , 4000"
+_NOTE:_ The data file should be ordered as the _testing_dataset.csv_ file (as created by running gen_splits.py). However, it is possible to add your own IDs for the input. This should be put in the 3rd column, and the csv file should have header "smiles, phase, org_names, 400, ... , 4000"
 
 
 **Prediction:**
@@ -129,7 +129,7 @@ where <MODEL-DIR> are the FOLDER or PATH for the model to predict with, and <DAT
 The prediction result will be saved in a file called pred_result.csv. Furthermore, the plotted spectrum will appear (can be saved manually).
 
 
-**Update**: it is now possble to choose either the folder for the model or the model file (checkpoint file) for **prediction**. 
+**Update**: it is now possble to choose either the folder for the model or the model file (checkpoint file) for **prediction** and **evaluation**. 
 
 
 
