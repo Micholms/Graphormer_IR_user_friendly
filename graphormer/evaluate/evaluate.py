@@ -213,7 +213,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             for i in range(total):
                 smiles = smilesL[i]
                 ph = phase[i][1]
-                print("lenght",len(phase[i]))
+                #print("lenght",len(phase[i]))
                 if len(phase[i])>1802:
                     ID=phase[i][2]
                 else: ID="no ID"
@@ -253,8 +253,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                     norm1.extend([ph])
                     norm1.extend([ID])
                     stack.append(norm1)
-                    print(len(stack))
-            print(stack[0][-6:])
+                    
             if save:
                 wv = np.arange(400, 4002, 2)
                 wv_true = [str(i) + '_true' for i in wv]
