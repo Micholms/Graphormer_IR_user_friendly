@@ -186,8 +186,7 @@ class IRSpectraD(DGLDataset):
         col_names=x[0]
         if "smiles" in col_names or "SMILES" in col_names :
             x = x[1:] ## removing header
-        if len(x)<1802:
-            print("Error. Something is missing, probably SMILES, PHASE and/or 400-4000cm-1 VALUES")
+        
         print("Loading Data and Converting SMILES to DGL graphs")
         count_outliers = 0
 
