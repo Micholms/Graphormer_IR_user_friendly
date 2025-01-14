@@ -214,7 +214,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 smiles = smilesL[i]
                 ph = phase[i][1]
                 #print("lenght",len(phase[i]))
-                if len(phase[i])>1802:
+                if len(phase[i])>1803:
                     ID=phase[i][2]
                 else: ID="no ID"
                 subL = []
