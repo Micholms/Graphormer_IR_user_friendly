@@ -184,8 +184,8 @@ class IRSpectraD(DGLDataset):
         
         
         col_names=x[0]
-        if "smiles" in col_names or "SMILES" in col_names :
-            x = x[1:] ## removing header
+        #if "smiles" in col_names or "SMILES" in col_names :
+        x = x[1:] ## removing header
         
         print("Loading Data and Converting SMILES to DGL graphs")
         count_outliers = 0
