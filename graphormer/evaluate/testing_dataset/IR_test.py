@@ -181,12 +181,13 @@ class IRSpectraD(DGLDataset):
         self.smiles = []
 
         x = import_data(sys.argv[-1])
-        x_old=x
+        
         
         col_names=x[0]
-        
-        x = x[1:] ## removing header
-        
+        if "smiles" in col_names or "SMILES" in col_names :
+            x = x[1:] ## removing header
+        if len(x)<1802:
+            print("Error. Something is missing, probably SMILES, PHASE and/or 400-4000cm-1 VALUES")
         print("Loading Data and Converting SMILES to DGL graphs")
         count_outliers = 0
 
@@ -206,8 +207,7 @@ class IRSpectraD(DGLDataset):
                 ID=i[2]
             else: 
                 sp = torch.tensor(np.asarray(i[2:], dtype = np.float64), dtype=torch.float64, device=torch.device('cpu'))
-                #names_org=x_old[2]
-                #print(names_org)
+                
                 
             sp = torch.clip(sp, min = 10e-8) # clipping
             sp_nanmask = torch.isnan(sp)
