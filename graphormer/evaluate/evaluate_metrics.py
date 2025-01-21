@@ -19,7 +19,7 @@ from tqdm import tqdm
 import csv
 from rdkit import Chem
 from rdkit.Chem import Draw
-from evaluation_plot import *
+from evaluation_plot_metric import *
 
 sys.path.append( path.dirname(   path.dirname( path.abspath(__file__) ) ) )
 from pretrain import load_pretrained_model
