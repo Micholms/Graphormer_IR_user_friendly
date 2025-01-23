@@ -23,8 +23,11 @@ from evaluation_plot import *
 
 sys.path.append( path.dirname(   path.dirname( path.abspath(__file__) ) ) )
 from pretrain import load_pretrained_model
-
 import logging
+
+start=500
+end=1502
+n_point=int((end-start)/2)
 
 def import_data(file):
     with open(file,'r') as rf:
@@ -47,7 +50,7 @@ def gen_histogram(d_set, metric):
     plt.title(title)
     plt.show()
 
-def make_conv_matrix(frequencies=list(range(400,4002,2)),std_dev=15):
+def make_conv_matrix(frequencies=list(range(start,end,2)),std_dev=15):
     length=len(frequencies)
     gaussian=[(1/(2*math.pi*std_dev**2)**0.5)*math.exp(-1*((frequencies[i])-frequencies[0])**2/(2*std_dev**2)) for i in range(length)]
     conv_matrix=np.empty([length,length])
@@ -56,7 +59,17 @@ def make_conv_matrix(frequencies=list(range(400,4002,2)),std_dev=15):
             conv_matrix[i,j]=gaussian[abs(i-j)]
     return conv_matrix
 
-def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequencies=list(range(400,4002,2)),threshold=1e-10,std_dev=15):
+def check_negative(y_pred):
+
+    for i in range(len(y_pred)):
+        if y_pred[i]<0:
+            if y_pred[i+1]>=0:
+                y_pred[i]=0
+
+
+    return y_pred
+
+def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,metric,frequencies=list(range(start,end,2)),threshold=1e-10,std_dev=15):
     save=True
 
     length = len(spectrum1)
@@ -70,7 +83,6 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
 
     normalize = False
     if normalize:## This term normalizes the fingerprint region to sum to 1 according to teh bounds n1,n - discussed in paper in more detail why we do this
-
         spectrum1 /= np.sum(spectrum1)
         spectrum2 /= np.sum(spectrum2)
         n1 = 100
@@ -78,7 +90,6 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
 
         spectrum2[n1:n] = spectrum2[n1:n] / np.sum(spectrum2[n1:n]) ## 400 cm-1 to 1500 cm-1
         spectrum1[n1:n] = spectrum1[n1:n] / np.sum(spectrum1[n1:n]) ## 400 cm-1 to 1500 cm-1
-
         spectrum1 /= np.max(spectrum1)
         spectrum2 /= np.max(spectrum2)
 
@@ -97,8 +108,13 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,frequ
 
     distance=(norm1*np.log(norm1/norm2)+norm2*np.log(norm2/norm1))
     distance[0,nan_mask] = 0
-
-    sim=1/(1+np.sum(distance)) ## Calculating SIS
+    if metric =="cos_s":
+    #sim=1/(1+np.sum(distance)) ## Calculating SIS
+        conv1=list(np.reshape(conv1,length))
+        conv2=list(np.reshape(conv2,length))
+        sim = np.dot(conv1,conv2)/(norm(conv1)*norm(conv2))
+    elif metric =="sis":
+        sim=1/(1+np.sum(distance)) ## Calculating SIS
 
     if save:
         simL = np.concatenate((norm1, norm2, [smiles, sim]), axis =None) ## If you want detailed data vs just the similarity score
@@ -195,18 +211,19 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             logger.info(f"mae: {mae}")
 	
         else:
-            y_true = np.asarray(y_true, dtype = np.float64)
-            y_pred = np.asarray(y_pred, dtype = np.float64)
+            y_true = np.asarray(y_true, dtype = np.float64)#[:701]
+            y_pred = np.asarray(y_pred, dtype = np.float64)#[:701]
 
             dset_size = 1801 ## size of wavenumber vector (400, 4000) 1801 before
             sim_L = []
             
             dataset = import_data(sys.argv[-1])
-	    #dataset = import_data(args.dataset-source) #kanske?
+
 
             save = True
 
             total = len(y_pred)//dset_size
+
             conv_matrix = make_conv_matrix(std_dev=15) ## in wavenumber, used for smoothing gaussian convolution
 
             x = []
@@ -224,39 +241,25 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
                 y_val_true = np.asarray(y_true[i*dset_size: (i+1)*dset_size], dtype=np.float64)
                 y_val_pred = y_pred[i*dset_size: (i+1)*dset_size] ## Grabbing batched data
-                y_val_pred /= np.nanmax(y_val_pred) ## normalizing to sum
+                y_val_pred /= np.nanmax(y_val_pred)## normalizing to sum
                 y_val_true /= np.nanmax(y_val_true)
+                y_val_pred=check_negative(y_val_pred)
+                y_val_true=y_val_true[:n_point]
+                y_val_pred=y_val_pred[:n_point]
 
-                if args.metric =="sis":
                
+                sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles, args.metric) ## this contains smiles, and the normalized vectors
+                sim_L.append(float(sim[-1]))
 
-                    sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles) ## this contains smiles, and the normalized vectors
-                    sim_L.append(float(sim[-1]))
+                norm1=[]
+                norm1.extend(sim) #Including wn values, smiles, sim
+                norm1.extend([ph])
+                norm1.extend([ID])
+                stack.append(norm1)
 
-                    norm1=[]
-                    norm1.extend(sim) #Including wn values, smiles, sim
-                    norm1.extend([ph])
-                    norm1.extend([ID])
-                    stack.append(norm1)
-
-                elif args.metric =="cos_s":
-
-                    cos_s = np.dot(y_val_true,y_val_pred)/(norm(y_val_true)*norm(y_val_pred))
-
-                    sim_L.append(cos_s)
-
-
-                    res=np.concatenate((y_val_true, y_val_pred, [smiles, cos_s]), axis =None)
-                    norm1=[]
-                    norm1.extend(res)
-
-                    norm1.extend([ph])
-                    norm1.extend([ID])
-
-                    stack.append(norm1)
 
             if save:
-                wv = np.arange(400, 4002, 2)
+                wv = np.arange(start, end, 2)
                 wv_true = [str(i) + '_true' for i in wv]
                 wv_pred = [str(i) + '_pred' for i in wv]
                 metric=str(args.metric)
@@ -277,8 +280,8 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             logger.info(f"sim average: {m}")
             df=pd.read_csv("./eval_results.csv")
 
-            true,pred=get_true_pred_metric(df, metric)
-            plot_percentile_metric(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric)
+            true,pred_fp=get_true_pred(df, metric, n_point)
+            plot_percentile_fp(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric, start, end)
 
 def main():
     parser = options.get_training_parser()
