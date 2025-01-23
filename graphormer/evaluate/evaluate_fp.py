@@ -280,7 +280,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             logger.info(f"sim average: {m}")
             df=pd.read_csv("./eval_results.csv")
 
-            true,pred_fp=get_true_pred(df, metric, n_point)
+            true,pred_fp=get_true_pred_fp(df, metric, n_point)
             plot_percentile_fp(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric, start, end)
 
 def main():
