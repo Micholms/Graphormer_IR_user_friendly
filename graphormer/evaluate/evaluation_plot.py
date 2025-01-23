@@ -31,7 +31,7 @@ def plot_percentile(df,true, pred,p_range):
     for j,index in enumerate(indexes):
 
         true_v=true.iloc[index,:-1]
-        pred_v=pred.iloc[index,:-2]_metric
+        pred_v=pred.iloc[index,:-2]
         x=np.arange(400,4002,2)
         ax[m,n].plot(x,true_v/true_v.max(), label="True")
         ax[m,n].plot(x,pred_v/pred_v.max(), label="Pred")
@@ -76,7 +76,7 @@ def plot_percentile_metric(df,true, pred,p_range, metric):
 
             m,n=0,0
             for i in p_range:
-                indexes.append(get_percentile(df,i, metric))
+                indexes.append(get_percentile_metric(df,i, metric))
             fig, ax = plt.subplots(5,2,figsize=(12,15), sharex=True, sharey=True)
 
             for j,index in enumerate(indexes):
@@ -113,13 +113,7 @@ def get_true_pred_fp(df, metric, n_point):
     #print(true,pred)
     return true, pred
 
-def get_percentile_fp(df,p, metric):
-    x=df[metric]
-    pcen=np.percentile(x,p)
-    i_high=np.asarray([i-pcen if i-pcen>=0 else x.max()-pcen for i in x]).argmin()
-    i_low=np.asarray([i-pcen if i-pcen<=0 else x.min()-pcen for i in x]).argmax()
-    i_near=abs(x-pcen).argmin()
-    return i_near
+
 
 # Plot for percentiles from evaluation
 def plot_percentile_fp(df,true, pred,p_range, metric, start, end):
@@ -127,7 +121,7 @@ def plot_percentile_fp(df,true, pred,p_range, metric, start, end):
 
             m,n=0,0
             for i in p_range:
-                indexes.append(get_percentile(df,i, metric))
+                indexes.append(get_percentile_metric(df,i, metric))
             fig, ax = plt.subplots(5,2,figsize=(12,15), sharex=True, sharey=True)
 
             for j,index in enumerate(indexes):
