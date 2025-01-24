@@ -296,6 +296,14 @@ def main():
         "--metric",
         type=str,
     )
+    parser.add_argument(
+        "--start",
+        type=str,
+    )
+    parser.add_argument(
+        "--end",
+        type=str,
+    )
     args = options.parse_args_and_arch(parser, modify_parser=None)
     start=int(args.start)
     print(start, type(start))
