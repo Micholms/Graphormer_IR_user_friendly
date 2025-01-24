@@ -25,9 +25,6 @@ sys.path.append( path.dirname(   path.dirname( path.abspath(__file__) ) ) )
 from pretrain import load_pretrained_model
 import logging
 
-start=500
-end=1502
-n_point=int((end-start)/2)
 
 def import_data(file):
     with open(file,'r') as rf:
@@ -284,6 +281,9 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             plot_percentile_fp(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric, start, end)
 
 def main():
+    start=args.start
+    end=args.end
+    n_point=int((end-start)/2)
     parser = options.get_training_parser()
     parser.add_argument(
         "--split",
