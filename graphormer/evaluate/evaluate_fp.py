@@ -273,12 +273,12 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             m = np.round(np.mean(sim_L), 5)
             std = np.round(np.std(sim_L), 5)
             print(m, std)
-            gen_histogram(sim_L, metric) ## for summary statistics
+            #gen_histogram(sim_L, metric) ## for summary statistics
             logger.info(f"sim average: {m}")
-            df=pd.read_csv("./eval_results.csv")
+            #df=pd.read_csv("./eval_results.csv")
 
-            true,pred=get_true_pred_fp(df, metric, n_point)
-            plot_percentile_fp(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric, start, end)
+            #true,pred=get_true_pred_fp(df, metric, n_point)
+            #plot_percentile_fp(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric, start, end)
 
 def main():
     start=args.start
