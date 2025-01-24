@@ -281,9 +281,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
             #plot_percentile_fp(df,true,pred, [10,20,30,40,50,60,70,80,90,100],metric, start, end)
 
 def main():
-    start=args.start
-    end=args.end
-    n_point=int((end-start)/2)
+    
     parser = options.get_training_parser()
     parser.add_argument(
         "--split",
@@ -295,6 +293,10 @@ def main():
         type=str,
     )
     args = options.parse_args_and_arch(parser, modify_parser=None)
+    start=int(args.start)
+    print(start, type(start))
+    end=int(args.end)
+    n_point=int((end-start)/2)
     logger = logging.getLogger(__name__)
     if args.pretrained_model_name != "none":
         eval(args, True, logger=logger)
