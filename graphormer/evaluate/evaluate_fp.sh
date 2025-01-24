@@ -17,6 +17,8 @@ python Graphormer-IR/graphormer/evaluate/evaluate_fp.py \
     --save-dir $1 \
     --split train \
     --metric $3\
+    --start $4\
+    --end $5 \
     --dataset-source $2\
  
 
