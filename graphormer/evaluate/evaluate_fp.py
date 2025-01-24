@@ -298,11 +298,11 @@ def main():
     )
     parser.add_argument(
         "--start",
-        type=str,
+        type=int,
     )
     parser.add_argument(
         "--end",
-        type=str,
+        type=int,
     )
     args = options.parse_args_and_arch(parser, modify_parser=None)
     start=int(args.start)
