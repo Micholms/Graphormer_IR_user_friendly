@@ -47,7 +47,7 @@ def gen_histogram(d_set, metric):
     plt.title(title)
     plt.show()
 
-def make_conv_matrix(frequencies=list(range(int(args.start),int(args.end),2)),std_dev=15):
+def make_conv_matrix(frequencies=list(range(start,end,2)),std_dev=15):
     length=len(frequencies)
     gaussian=[(1/(2*math.pi*std_dev**2)**0.5)*math.exp(-1*((frequencies[i])-frequencies[0])**2/(2*std_dev**2)) for i in range(length)]
     conv_matrix=np.empty([length,length])
@@ -66,7 +66,7 @@ def check_negative(y_pred):
 
     return y_pred
 
-def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,metric,frequencies=list(range(int(args.start),int(args.end),2)),threshold=1e-10,std_dev=15):
+def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,metric,frequencies=list(range(start,end,2)),threshold=1e-10,std_dev=15):
     save=True
 
     length = len(spectrum1)
@@ -225,7 +225,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
 
             total = len(y_pred)//dset_size
 
-            conv_matrix = make_conv_matrix(std_dev=15) ## in wavenumber, used for smoothing gaussian convolution
+            conv_matrix = make_conv_matrix(frequencies=list(range(start,end,2)),std_dev=15) ## in wavenumber, used for smoothing gaussian convolution
 
             x = []
             stack = []
@@ -249,7 +249,7 @@ def eval(args, use_pretrained, checkpoint_path=None, logger=None):
                 y_val_pred=y_val_pred[:n_point]
 
                
-                sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles, args.metric) ## this contains smiles, and the normalized vectors
+                sim = spectral_information_similarity(y_val_true, y_val_pred, conv_matrix, smiles, args.metric,frequencies=list(range(start,end,2))) ## this contains smiles, and the normalized vectors
                 sim_L.append(float(sim[-1]))
 
                 norm1=[]
