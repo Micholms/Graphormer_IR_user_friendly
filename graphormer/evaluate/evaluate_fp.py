@@ -47,7 +47,7 @@ def gen_histogram(d_set, metric):
     plt.title(title)
     plt.show()
 
-def make_conv_matrix(frequencies=list(range(start,end,2)),std_dev=15):
+def make_conv_matrix(frequencies=list(range(int(args.start),int(args.end),2)),std_dev=15):
     length=len(frequencies)
     gaussian=[(1/(2*math.pi*std_dev**2)**0.5)*math.exp(-1*((frequencies[i])-frequencies[0])**2/(2*std_dev**2)) for i in range(length)]
     conv_matrix=np.empty([length,length])
@@ -66,7 +66,7 @@ def check_negative(y_pred):
 
     return y_pred
 
-def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,metric,frequencies=list(range(start,end,2)),threshold=1e-10,std_dev=15):
+def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,metric,frequencies=list(range(int(args.start),int(args.end),2)),threshold=1e-10,std_dev=15):
     save=True
 
     length = len(spectrum1)
@@ -120,6 +120,10 @@ def spectral_information_similarity(spectrum1,spectrum2,conv_matrix,smiles,metri
         return sim
 
 def eval(args, use_pretrained, checkpoint_path=None, logger=None):
+    start=int(args.start)
+    end=int(args.end)
+    n_point=int((end-start)/2)
+	
     cfg = convert_namespace_to_omegaconf(args)
     np.random.seed(cfg.common.seed)
     utils.set_torch_seed(cfg.common.seed)
