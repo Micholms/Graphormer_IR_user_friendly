@@ -50,7 +50,7 @@ def make_conv_matrix(frequencies,std_dev=15):
     return conv_matrix
 
 def check_negative(y_pred):
-    for i in range(len(y_pred)):
+    for i in range(len(y_pred)-1):
         if y_pred[i]<0:
             if y_pred[i+1]>=0:
                 y_pred[i]=0
